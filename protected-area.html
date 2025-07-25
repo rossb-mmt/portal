@@ -148,17 +148,17 @@ function loadExhibitorData(userEmail) {
 }
 
 function populateForm(exhibitor) {
-    currentExhibitorId = exhibitor.cr4d1_exhibitorid;
+    currentExhibitorId = exhibitor.cr3a6_exhibitorid;
     
-    $('#exhibitorName').val(exhibitor.cr4d1_exhibitorname || '');
-    $('#description').val(exhibitor.cr4d1_description || '');
-    $('#exhibitorEmail').val(exhibitor.cr4d1_emailaddress || '');
+    $('#exhibitorName').val(exhibitor.cr3a6_name || '');
+    $('#description').val(exhibitor.cr3a6_description || '');
+    $('#exhibitorEmail').val(exhibitor.cr3a6_editoremail || '');
     
     if (exhibitor.cr4d1_logourl) {
-        currentLogoUrl = exhibitor.cr4d1_logourl;
+        currentLogoUrl = exhibitor.cr3a6_logourl;
         $('#currentLogo').html(`
             <p>Current logo:</p>
-            <img src="${exhibitor.cr4d1_logourl}" alt="Current logo" style="max-width: 200px; max-height: 100px;">
+            <img src="${exhibitor.cr3a6_logourl}" alt="Current logo" style="max-width: 200px; max-height: 100px;">
         `);
     }
 }
