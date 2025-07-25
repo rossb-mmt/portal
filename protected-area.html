@@ -134,9 +134,9 @@ function loadExhibitorData(userEmail) {
             $('#loadingDiv').hide();
             $('#protectedContent').show();
             
-            if (response.exhibitors && response.exhibitors.length > 0) {
-                var exhibitor = response.exhibitors[0];
-                populateForm(exhibitor);
+            if (response) {
+                //var exhibitor = response.exhibitors[0];
+                populateForm(response);
             }
         },
         error: function(xhr) {
