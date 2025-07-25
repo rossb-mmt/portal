@@ -122,7 +122,7 @@ var currentLogoUrl = null;
 
 function loadExhibitorData(userEmail) {
     $.ajax({
-        url: 'YOUR_GET_EXHIBITOR_FLOW_URL',
+        url: 'https://543d3fbf7b55eefd8b70543c5a3929.a3.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/d9339e962b2e4c1caaf13d94d0dd5c6c/triggers/manual/paths/invoke/?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=2pCsntTEsA_AH33fKUJ1P-QN138Mr2fn8klSZlZtx9g',
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -177,7 +177,7 @@ function saveExhibitorData() {
     $('#saveMessage, #errorMessage').hide();
     
     $.ajax({
-        url: 'YOUR_SAVE_EXHIBITOR_FLOW_URL',
+        url: 'https://543d3fbf7b55eefd8b70543c5a3929.a3.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/39a2dddb6ab24d158c7b876be3af57d6/triggers/manual/paths/invoke/?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=1QCVTa3jgZi2CyNU58wSlF7n18zmdxBhc1ybZOpuH7E',
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
