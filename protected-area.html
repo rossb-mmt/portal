@@ -95,7 +95,7 @@
       $(document).ready(function() {
     // Check authentication
     if (sessionStorage.getItem('authenticated') !== 'true') {
-        window.location.href = '/request-access';
+        window.location.href = '/';
         return;
     }
     
@@ -234,7 +234,7 @@ function resetForm() {
 
 function logout() {
     sessionStorage.clear();
-    window.location.href = '/request-access';
+    window.location.href = '/';
 }
     </script>
   </head>
