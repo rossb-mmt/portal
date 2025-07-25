@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Magic Link Login</title>
+  </head>
+  <body>
+    <form id="loginForm">
+      <label for="email">Email:</label>
+      <input type="email" id="email" required />
+      <button type="submit" id="submitBtn">Send Magic Link</button>
+    </form>
+    <div id="successMessage" style="display: none">
+      <p>Magic link sent! Please check your email.</p>
+    </div>
+    <div id="errorMessage" style="display: none">
+      <p>Error sending magic link.</p>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .getElementById("submitBtn")
+          .addEventListener("click", function (e) {
+            e.preventDefault();
+
+            var email = document.getElementById("email").value;
+            if (!email) {
+              alert("Please enter your email address");
+              return;
+            }
+
+            // Call your Power Automate flow
+            fetch(
+              "https://543d3fbf7b55eefd8b70543c5a3929.a3.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/a51d2818d27c46fb9e5216fa47e9760f/triggers/manual/paths/invoke/?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=NKkSGRKW9DGFp_u6P4_FFnLZP48oXtrw8nvbqfxVfgM",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  email: email,
+                }),
+              }
+            )
+              .then(function (response) {
+                if (response.ok) {
+                  document.getElementById("loginForm").style.display = "none";
+                  document.getElementById("successMessage").style.display =
+                    "block";
+                } else if (response.status === 403) {
+                  var errorDiv = document.getElementById("errorMessage");
+                  errorDiv.textContent = "Email address not authorized";
+                  errorDiv.style.display = "block";
+                } else {
+                  var errorDiv = document.getElementById("errorMessage");
+                  errorDiv.textContent = "Error sending magic link";
+                  errorDiv.style.display = "block";
+                }
+              })
+              .catch(function () {
+                var errorDiv = document.getElementById("errorMessage");
+                errorDiv.textContent = "Error sending magic link";
+                errorDiv.style.display = "block";
+              });
+          });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Magic Link Login</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        // Get token from URL parameter
+        var urlParams = new URLSearchParams(window.location.search);
+        var token = urlParams.get("token");
+
+        if (!token) {
+          $("#errorDiv").show();
+          return;
+        }
+
+        // Validate token with Power Automate flow
+        $.ajax({
+          url: "https://543d3fbf7b55eefd8b70543c5a3929.a3.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/7f16257cb7ca45b499930864689064f3/triggers/manual/paths/invoke/?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=w030XM549rxV9UxPm0YXVY0_lc-TSg1i6AdhY4cRg3E",
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: JSON.stringify({
+            token: token,
+          }),
+          success: function (response) {
+            if (response.status === "success") {
+              // Store user session (simplified)
+              sessionStorage.setItem("authenticated", "true");
+              sessionStorage.setItem("userEmail", response.email);
+
+              // Redirect to protected area
+              window.location.href = "/protected-area";
+            }
+          },
+          error: function (xhr) {
+            $("#errorDiv").show();
+          },
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="errorDiv" style="display: none">
+      <p>Error validating magic link. Please try again.</p>
+    </div>
+  </body>
+</html>
